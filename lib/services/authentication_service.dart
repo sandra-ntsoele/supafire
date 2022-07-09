@@ -17,10 +17,10 @@ class AuthenticationService {
     } catch (e) {
       return e;
     }
-    return null;
   }
 
   Future signUpWIthEmail({
+    required String displayName,
     required String email,
     required String password,
   }) async {
