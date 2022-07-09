@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "754633592015",
+    "project_id": "supafire-f55ff",
+    "storage_bucket": "supafire-f55ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754633592015:android:d68bb1af7b1a597d25fbba",
+        "android_client_info": {
+          "package_name": "com.ntsoele.supafire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754633592015-2fvmnh1ifh9r9sdp89mlv4du9arss0b3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiC-P-2HnVtTIVC5t5chTyJz1O1zWdSmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754633592015-2fvmnh1ifh9r9sdp89mlv4du9arss0b3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
