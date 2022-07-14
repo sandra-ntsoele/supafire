@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:supafire/constants/route_names.dart';
+import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/signup_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -20,6 +22,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const SignUp(),
+      routes: {
+        HomeViewRoute: (context) => const HomeView(),
+      },
     );
   }
 }
