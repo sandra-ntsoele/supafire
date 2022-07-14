@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supafire/viewmodels/signup_view_model.dart';
+import 'package:supafire/controllers/signup_controller.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
