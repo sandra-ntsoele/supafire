@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:supafire/ui/views/signup_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -11,10 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FBase w/Supabase Demo',
+      title: 'SupaFire',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      home: const SignUp(),
     );
   }
 }
