@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supafire/controllers/signup_controller.dart';
+import 'package:supafire/ui/shared/layout_helpers.dart';
+import 'package:supafire/ui/widgets/display_name_text_field.dart';
+import 'package:supafire/ui/widgets/email_text_field.dart';
+import 'package:supafire/ui/widgets/password_text_field.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -21,7 +25,7 @@ class SignUpView extends StatelessWidget {
     return Scaffold(
       body: Form(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,11 +33,21 @@ class SignUpView extends StatelessWidget {
             children: [
               const Text(
                 "Create Account",
-                style: TextStyle(fontSize: 36),
+                style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
               ),
-              TextFormField(controller: signUpController.displayNameController),
-              TextFormField(controller: signUpController.emailController),
-              TextFormField(controller: signUpController.passwordController),
+              LayoutHelpers.smallVerticalSpace,
+              DisplayNameTextField(
+                controller: signUpController.displayNameController,
+              ),
+              LayoutHelpers.smallVerticalSpace,
+              EmailTextField(
+                controller: signUpController.emailController,
+              ),
+              LayoutHelpers.smallVerticalSpace,
+              PasswordTextField(
+                controller: signUpController.passwordController,
+              ),
+              LayoutHelpers.smallVerticalSpace,
               ElevatedButton(
                 onPressed: () async {
                   signUpController.updateLoading();
