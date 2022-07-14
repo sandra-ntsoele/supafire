@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:supafire/constants/route_names.dart';
 import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/signup_view.dart';
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'SupaFire',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: GoogleFonts.rubik().fontFamily,
+        textTheme: GoogleFonts.rubikTextTheme(),
       ),
       home: const SignUp(),
       routes: {
