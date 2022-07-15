@@ -45,7 +45,7 @@ class SignUpView extends StatelessWidget {
               ),
               LayoutHelpers.smallVerticalSpace,
               PasswordTextField(
-                controller: signUpController.passwordController,
+                textEditingController: signUpController.passwordController,
               ),
               LayoutHelpers.smallVerticalSpace,
               ElevatedButton(

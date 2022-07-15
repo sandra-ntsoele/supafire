@@ -2,30 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:supafire/ui/shared/app_colors.dart';
 import 'package:supafire/ui/shared/shared_styles.dart';
 
-class PasswordTextField extends StatelessWidget {
-  final TextEditingController controller;
+class PasswordTextField extends StatefulWidget {
+  final TextEditingController textEditingController;
   const PasswordTextField({
     Key? key,
-    required this.controller,
+    required this.textEditingController,
+  }) : super(key: key);
+
+  @override
+  State<PasswordTextField> createState() => PasswordTextFieldController();
+}
+
+class PasswordTextFieldController extends State<PasswordTextField> {
+  @override
+  Widget build(BuildContext context) =>
+      PasswordTextFieldView(viewController: this);
+
+  bool passwordVisibility = false;
+
+  void togglePasswordVisibility() {
+    setState(() {
+      passwordVisibility
+          ? passwordVisibility = false
+          : passwordVisibility = true;
+    });
+  }
+}
+
+class PasswordTextFieldView extends StatelessWidget {
+  final PasswordTextFieldController viewController;
+
+  const PasswordTextFieldView({
+    Key? key,
+    required this.viewController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
+      controller: viewController.widget.textEditingController,
       decoration: SharedStyles.textFieldDecoration(
         label: "Password",
         suffixIcon: IconButton(
-          onPressed: () {},
+          onPressed: () => viewController.togglePasswordVisibility(),
           icon: Icon(
-            Icons.visibility_off,
+            viewController.passwordVisibility
+                ? Icons.visibility_rounded
+                : Icons.visibility_off,
             color: AppColours.grey,
           ),
         ),
       ),
       style: SharedStyles.textFieldStyle,
       cursorColor: AppColours.grey,
-      obscureText: true,
+      obscureText: viewController.passwordVisibility ? false : true,
     );
   }
 }
