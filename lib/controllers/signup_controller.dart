@@ -5,6 +5,8 @@ import 'package:supafire/ui/views/signup_view.dart';
 import 'package:supafire/ui/widgets/custom_alert_dialog.dart';
 import 'package:supafire/services/navigator_service.dart';
 
+enum ControllerState { busy, listening }
+
 class SignUpController extends State<SignUp> {
   final AuthenticationService _authService = AuthenticationService();
   final NavigatorService _navService = NavigatorService();
@@ -12,8 +14,9 @@ class SignUpController extends State<SignUp> {
   final displayNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  bool loading = false;
+  ControllerState state = ControllerState.listening;
 
   @override
   void dispose() {
@@ -24,9 +27,11 @@ class SignUpController extends State<SignUp> {
     super.dispose();
   }
 
-  updateLoading() {
+  updateState() async {
     setState(() {
-      loading = true;
+      state == ControllerState.listening
+          ? state = ControllerState.busy
+          : state = ControllerState.listening;
     });
   }
 
@@ -46,8 +51,10 @@ class SignUpController extends State<SignUp> {
 
     if (result is bool) {
       if (result) {
+        updateState();
         _navService.navigateTo(HomeViewRoute);
       } else {
+        updateState();
         const CustomAlertDialog(
           title: "Supafire",
           message: "Something went wrong..",
