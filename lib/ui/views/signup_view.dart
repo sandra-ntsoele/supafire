@@ -4,6 +4,7 @@ import 'package:supafire/ui/shared/layout_helpers.dart';
 import 'package:supafire/ui/widgets/display_name_text_field.dart';
 import 'package:supafire/ui/widgets/email_text_field.dart';
 import 'package:supafire/ui/widgets/password_text_field.dart';
+import 'package:supafire/ui/widgets/primary_button.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -23,41 +24,38 @@ class SignUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const Text(
-                "Create Account",
-                style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-              ),
-              LayoutHelpers.smallVerticalSpace,
-              DisplayNameTextField(
-                controller: signUpController.displayNameController,
-              ),
-              LayoutHelpers.smallVerticalSpace,
-              EmailTextField(
-                controller: signUpController.emailController,
-              ),
-              LayoutHelpers.smallVerticalSpace,
-              PasswordTextField(
-                textEditingController: signUpController.passwordController,
-              ),
-              LayoutHelpers.smallVerticalSpace,
-              ElevatedButton(
-                onPressed: () async {
-                  signUpController.updateLoading();
-                  signUpController.signUp();
-                },
-                child:
-                    Text(signUpController.loading ? "Loading..." : "Sign Up"),
-              )
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const Text(
+              "Welcome",
+              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            ),
+            LayoutHelpers.largeVerticalSpace,
+            DisplayNameTextField(
+              controller: signUpController.displayNameController,
+            ),
+            LayoutHelpers.smallVerticalSpace,
+            EmailTextField(
+              controller: signUpController.emailController,
+            ),
+            LayoutHelpers.smallVerticalSpace,
+            PasswordTextField(
+              textEditingController: signUpController.passwordController,
+            ),
+            LayoutHelpers.largeVerticalSpace,
+            PrimaryButton(
+              controllerState: signUpController.state,
+              onPressed: () async {
+                signUpController.signUp();
+                signUpController.updateState();
+              },
+            )
+          ],
         ),
       ),
     );
