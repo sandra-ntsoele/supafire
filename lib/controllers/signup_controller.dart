@@ -1,23 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:supafire/constants/route_names.dart';
 import 'package:supafire/services/authentication_service.dart';
+import 'package:supafire/services/dialog_service.dart';
 import 'package:supafire/ui/views/signup_view.dart';
-import 'package:supafire/ui/widgets/custom_alert_dialog.dart';
 import 'package:supafire/services/navigator_service.dart';
 
 enum ControllerState { busy, listening }
 
 class SignUpController extends State<SignUp> {
+  @override
+  // Create view and share state with view
+  Widget build(BuildContext context) => SignUpView(signUpController: this);
+
+  /// Class fields
   final AuthenticationService _authService = AuthenticationService();
   final NavigatorService _navService = NavigatorService();
 
   final displayNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   ControllerState state = ControllerState.listening;
 
+  /// Class methods
   @override
   void dispose() {
     displayNameController.dispose();
@@ -27,7 +33,7 @@ class SignUpController extends State<SignUp> {
     super.dispose();
   }
 
-  updateState() async {
+  void updateState() {
     setState(() {
       state == ControllerState.listening
           ? state = ControllerState.busy
@@ -35,32 +41,34 @@ class SignUpController extends State<SignUp> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) => SignUpView(signUpController: this);
-
-  Future signUp() async {
+  void signUp() async {
     String displayName = displayNameController.text.trim();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
-    var result = await _authService.signUpWIthEmail(
+    await _authService
+        .signUpWIthEmail(
       displayName: displayName,
       email: email,
       password: password,
+    )
+        .then(
+      (response) {
+        if (response.runtimeType == UserCredential) {
+          // Make a call to DB service to sync user details
+          _navService.navigateTo(context, routeName: HomeViewRoute);
+          updateState();
+        } else {
+          FirebaseAuthException exception = response;
+          DialogService.alert(
+            context: context,
+            title: "Account not created",
+            message: exception.message.toString(),
+          );
+          updateState();
+        }
+      },
     );
-
-    if (result is bool) {
-      if (result) {
-        updateState();
-        _navService.navigateTo(HomeViewRoute);
-      } else {
-        updateState();
-        const CustomAlertDialog(
-          title: "Supafire",
-          message: "Something went wrong..",
-        );
-      }
-    }
   }
 
   Future login() async {
