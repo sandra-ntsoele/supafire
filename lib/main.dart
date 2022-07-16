@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supafire/constants/route_names.dart';
+import 'package:supafire/services/authentication_service.dart';
 import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/signup_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +25,16 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.rubik().fontFamily,
         textTheme: GoogleFonts.rubikTextTheme(),
       ),
-      home: const SignUp(),
+      home: StreamBuilder(
+        stream: AuthenticationService().authState,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const HomeView();
+          } else {
+            return const SignUp();
+          }
+        },
+      ),
       routes: {
         HomeViewRoute: (context) => const HomeView(),
       },
