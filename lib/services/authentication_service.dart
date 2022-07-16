@@ -19,18 +19,19 @@ class AuthenticationService {
     }
   }
 
-  Future signUpWIthEmail({
+  Future<dynamic> signUpWIthEmail({
     required String displayName,
     required String email,
     required String password,
   }) async {
     try {
-      UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
+      var user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      return user.user != null;
+      return user;
+    } on FirebaseAuthException catch (e) {
+      return e;
     } catch (e) {
       return e;
     }
