@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NavigatorService {
-  // Create a GlobalKey to manage this Navigator widget
-  final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
-
-  Future<dynamic> navigateTo(String routeName) {
-    return _navKey.currentState!.pushNamed(routeName);
+  navigateTo(context, {required String routeName}) {
+    Navigator.of(context).pushNamed(routeName);
   }
 
-  void pop() => _navKey.currentState!.pop();
+  void pop(context) => Navigator.of(context).pop();
 }
