@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supafire/constants/route_names.dart';
 import 'package:supafire/services/authentication_service.dart';
+import 'package:supafire/services/database_service.dart';
 import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/signup_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp().whenComplete(
+    () async => await Supabase.initialize(
+      url: DatabaseService.url,
+      anonKey: DatabaseService.anonKey,
+    ),
+  );
   runApp(const MyApp());
 }
 
