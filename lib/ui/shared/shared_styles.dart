@@ -2,6 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:supafire/ui/shared/app_colors.dart';
 
 class SharedStyles {
+  static ButtonStyle primaryButtonStyle({
+    EdgeInsets padding = const EdgeInsets.all(20),
+  }) {
+    return ButtonStyle(
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+      backgroundColor: MaterialStateProperty.all(AppColours.black),
+      padding: MaterialStateProperty.all(padding),
+      textStyle: MaterialStateProperty.all(
+        const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 15,
+          letterSpacing: 3,
+        ),
+      ),
+    );
+  }
+
   static InputDecoration textFieldDecoration({
     required String label,
     required dynamic suffixIcon,
