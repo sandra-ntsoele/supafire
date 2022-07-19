@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class NavigatorService {
+class NavigationService {
   navigateTo(context, {required String routeName}) {
     Navigator.of(context).pushNamed(routeName);
   }
