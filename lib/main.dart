@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supafire/constants/route_names.dart';
-import 'package:supafire/services/authentication_service.dart';
-import 'package:supafire/services/database_service.dart';
+import 'package:supafire/services/db_details.dart';
 import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/signup_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,8 +11,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().whenComplete(
     () async => await Supabase.initialize(
-      url: DatabaseService.url,
-      anonKey: DatabaseService.anonKey,
+      url: DBDetails.url,
+      anonKey: DBDetails.anonKey,
     ),
   );
   runApp(const MyApp());
@@ -32,18 +31,10 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.rubik().fontFamily,
         textTheme: GoogleFonts.rubikTextTheme(),
       ),
-      home: StreamBuilder(
-        stream: AuthenticationService().authState,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const HomeView();
-          } else {
-            return const SignUp();
-          }
-        },
-      ),
+      home: const HomePage(),
       routes: {
-        HomeViewRoute: (context) => const HomeView(),
+        HomeViewRoute: (context) => const HomePage(),
+        SignUpViewRoute: (context) => const SignUp(),
       },
     );
   }
