@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:supafire/ui/shared/app_colors.dart';
 
 class SharedStyles {
+  /// TEXT STYLES
+  static TextStyle headingOne = TextStyle(
+    color: AppColours.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 22,
+    letterSpacing: 0.5,
+  );
+
   static ButtonStyle primaryButtonStyle({
     EdgeInsets padding = const EdgeInsets.all(20),
   }) {
