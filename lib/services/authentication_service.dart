@@ -1,17 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  /// Fields
+  final FirebaseAuth _firebase = FirebaseAuth.instance;
 
-  User? get user => _firebaseAuth.currentUser;
-  get authState => _firebaseAuth.authStateChanges();
+  /// Properties
+  Stream<User?> get authState => _firebase.authStateChanges();
+
+  /// Methods
+  Future signOut() async {
+    await _firebase.signOut();
+
+    return true;
+  }
+
+  Future<void> deleteUser() => _firebase.currentUser!.delete();
 
   Future loginWithEmail({
     required String email,
     required String password,
   }) async {
     try {
-      UserCredential user = await _firebaseAuth.signInWithEmailAndPassword(
+      UserCredential user = await _firebase.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -28,11 +38,25 @@ class AuthenticationService {
     required String password,
   }) async {
     try {
-      var user = await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential userCredentials = await _firebase
+          .createUserWithEmailAndPassword(
         email: email,
         password: password,
+      )
+          .then(
+        (response) async {
+          User? user = response.user;
+
+          await Future.wait([
+            user!.updateDisplayName(displayName),
+            user.sendEmailVerification()
+          ]);
+
+          return response;
+        },
       );
-      return user;
+
+      return userCredentials.user;
     } on FirebaseAuthException catch (e) {
       return e;
     } catch (e) {

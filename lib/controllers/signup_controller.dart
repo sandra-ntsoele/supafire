@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:supafire/constants/route_names.dart';
 import 'package:supafire/services/authentication_service.dart';
 import 'package:supafire/services/dialog_service.dart';
 import 'package:supafire/ui/views/signup_view.dart';
-import 'package:supafire/services/navigator_service.dart';
 
 enum ControllerState { busy, listening }
 
@@ -15,7 +13,6 @@ class SignUpController extends State<SignUp> {
 
   /// Class fields
   final AuthenticationService _authService = AuthenticationService();
-  final NavigatorService _navService = NavigatorService();
 
   final displayNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -46,29 +43,20 @@ class SignUpController extends State<SignUp> {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
-    await _authService
-        .signUpWIthEmail(
+    dynamic response = await _authService.signUpWIthEmail(
       displayName: displayName,
       email: email,
       password: password,
-    )
-        .then(
-      (response) {
-        if (response.runtimeType == UserCredential) {
-          // Make a call to DB service to sync user details
-          _navService.navigateTo(context, routeName: HomeViewRoute);
-          updateState();
-        } else {
-          FirebaseAuthException exception = response;
-          DialogService.alert(
-            context: context,
-            title: "Account not created",
-            message: exception.message.toString(),
-          );
-          updateState();
-        }
-      },
     );
+
+    if (response is FirebaseAuthException) {
+      DialogService.alert(
+        context: context,
+        title: "Account not created",
+        message: response.message.toString(),
+      );
+      updateState();
+    } else if (response is User) {}
   }
 
   Future login() async {
