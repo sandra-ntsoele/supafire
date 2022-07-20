@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:supafire/controllers/home_page_controller.dart';
 import 'package:supafire/services/authentication_service.dart';
@@ -17,52 +18,61 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(25),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(src),
-                    fit: BoxFit.cover,
-                  ),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 5,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
+    return StreamBuilder(
+        stream: AuthenticationService().authState.map((event) => event),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            var user = snapshot.data as User;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(src),
+                          fit: BoxFit.cover,
+                        ),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 5,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Expanded(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.exit_to_app_rounded),
+                        padding: EdgeInsets.zero,
+                        alignment: Alignment.centerRight,
+                      ),
+                    )
+                  ],
                 ),
-                height: 150,
-                width: 150,
-              ),
-              Expanded(
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.exit_to_app_rounded),
-                  padding: EdgeInsets.zero,
-                  alignment: Alignment.centerRight,
+                LayoutHelpers.mediumVerticalSpace,
+                Text(
+                  user.displayName.toString(),
+                  style: SharedStyles.headingOne,
                 ),
-              )
-            ],
-          ),
-          LayoutHelpers.mediumVerticalSpace,
-          Text(
-            AuthenticationService().currentUser!.displayName.toString(),
-            style: SharedStyles.headingOne,
-          ),
-          LayoutHelpers.smallVerticalSpace,
-          Text(
-            AuthenticationService().currentUser!.email.toString(),
-            style: SharedStyles.paragraphTwo,
-          ),
-        ],
-      ),
-    );
+                LayoutHelpers.smallVerticalSpace,
+                Text(
+                  user.email.toString(),
+                  style: SharedStyles.paragraphTwo,
+                ),
+              ],
+            );
+          }
+        });
   }
 }
