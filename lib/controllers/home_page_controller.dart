@@ -7,7 +7,7 @@ import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/profile_page.dart';
 import 'package:supafire/ui/views/signup_view.dart';
 import 'package:supafire/ui/views/verify_email_page.dart';
-import 'package:supafire/ui/widgets/book_collection_list_view.dart';
+import 'package:supafire/ui/views/book_collection_page.dart';
 
 class HomePageController extends State<HomePage> {
   @override
@@ -30,8 +30,8 @@ class HomePageController extends State<HomePage> {
   @override
   void initState() {
     pages.addAll([
-      BookCollectionListView(viewController: this),
-      ProfilePage(viewController: this),
+      const BookCollectionPage(),
+      const ProfilePage(),
     ]);
 
     super.initState();
