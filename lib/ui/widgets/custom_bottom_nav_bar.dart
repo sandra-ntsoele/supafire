@@ -29,7 +29,7 @@ class CustomBottomNavBar extends StatelessWidget {
         onTap: (sourceIndex) => viewController.toggleCurrentIndex(sourceIndex),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
+            icon: Icon(Icons.book_rounded),
             label: "",
           ),
           BottomNavigationBarItem(
