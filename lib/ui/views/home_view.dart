@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supafire/controllers/home_page_controller.dart';
+import 'package:supafire/ui/shared/app_colors.dart';
 import 'package:supafire/ui/shared/shared_styles.dart';
 import 'package:supafire/ui/widgets/custom_bottom_nav_bar.dart';
 
@@ -22,13 +23,13 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () => viewController.signOut(),
-            icon: const Icon(Icons.exit_to_app_rounded),
-          ),
-        ),
         bottomNavigationBar: CustomBottomNavBar(viewController: viewController),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: AppColours.black,
+          child: const Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SizedBox(
           width: double.infinity,
           child: Column(

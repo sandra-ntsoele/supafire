@@ -12,27 +12,55 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      currentIndex: viewController.currentIndex,
-      selectedIconTheme: IconThemeData(
-        color: AppColours.black,
-      ),
-      unselectedIconTheme: IconThemeData(
-        color: AppColours.grey,
-      ),
-      selectedFontSize: 0,
-      unselectedFontSize: 0,
-      onTap: (sourceIndex) => viewController.changeCurrentIndex(sourceIndex),
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_filled),
-          label: "",
+    return BottomAppBar(
+      notchMargin: 7,
+      shape: const CircularNotchedRectangle(),
+      clipBehavior: Clip.antiAlias,
+      child: BottomNavigationBar(
+        currentIndex: viewController.currentIndex,
+        selectedIconTheme: IconThemeData(
+          color: AppColours.black,
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_rounded),
-          label: "",
-        )
-      ],
+        unselectedIconTheme: IconThemeData(
+          color: AppColours.grey,
+        ),
+        selectedFontSize: 0,
+        unselectedFontSize: 0,
+        onTap: (sourceIndex) => viewController.changeCurrentIndex(sourceIndex),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_rounded),
+            label: "",
+          )
+        ],
+      ),
     );
+
+    // BottomNavigationBar(
+    //   currentIndex: viewController.currentIndex,
+    //   selectedIconTheme: IconThemeData(
+    //     color: AppColours.black,
+    //   ),
+    //   unselectedIconTheme: IconThemeData(
+    //     color: AppColours.grey,
+    //   ),
+    //   selectedFontSize: 0,
+    //   unselectedFontSize: 0,
+    //   onTap: (sourceIndex) => viewController.changeCurrentIndex(sourceIndex),
+    //   items: const [
+    //     BottomNavigationBarItem(
+    //       icon: Icon(Icons.home_filled),
+    //       label: "",
+    //     ),
+    //     BottomNavigationBarItem(
+    //       icon: Icon(Icons.person_rounded),
+    //       label: "",
+    //     )
+    //   ],
+    // );
   }
 }
