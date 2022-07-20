@@ -6,6 +6,7 @@ import 'package:supafire/services/db_details.dart';
 import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/signup_view.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:supafire/ui/views/verify_email_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +34,9 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        HomeViewRoute: (context) => const HomePage(),
-        SignUpViewRoute: (context) => const SignUp(),
+        HomePageRoute: (context) => const HomePage(),
+        SignUpPageRoute: (context) => const SignUp(),
+        VerifyEmailPageRoute: (context) => const VerifyEmailPage(),
       },
     );
   }

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// Responsible for communicating with Firebase Authentication.
 class AuthenticationService {
   /// Fields
   final FirebaseAuth _firebase = FirebaseAuth.instance;
 
   /// Properties
-  Stream<User?> get authState => _firebase.authStateChanges();
+  Stream<User?> get authState => _firebase.userChanges();
+  User? get currentUser => _firebase.currentUser;
 
   /// Methods
   Future signOut() async {
