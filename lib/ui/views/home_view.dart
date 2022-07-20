@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supafire/controllers/home_page_controller.dart';
 import 'package:supafire/ui/shared/shared_styles.dart';
+import 'package:supafire/ui/widgets/custom_bottom_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,14 +28,18 @@ class HomePageView extends StatelessWidget {
             icon: const Icon(Icons.exit_to_app_rounded),
           ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Welcome home",
-              style: SharedStyles.headingOne,
-            ),
-          ],
+        bottomNavigationBar: CustomBottomNavBar(viewController: viewController),
+        body: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Welcome home",
+                style: SharedStyles.headingOne,
+              ),
+            ],
+          ),
         ),
       ),
     );
