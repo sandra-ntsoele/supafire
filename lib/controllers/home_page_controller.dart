@@ -4,8 +4,10 @@ import 'package:supafire/constants/route_names.dart';
 import 'package:supafire/services/authentication_service.dart';
 import 'package:supafire/services/navigation_service.dart';
 import 'package:supafire/ui/views/home_view.dart';
+import 'package:supafire/ui/views/profile_page.dart';
 import 'package:supafire/ui/views/signup_view.dart';
 import 'package:supafire/ui/views/verify_email_page.dart';
+import 'package:supafire/ui/widgets/book_collection_list_view.dart';
 
 class HomePageController extends State<HomePage> {
   @override
@@ -25,9 +27,21 @@ class HomePageController extends State<HomePage> {
         },
       );
 
+  @override
+  void initState() {
+    pages.addAll([
+      BookCollectionListView(viewController: this),
+      ProfilePage(viewController: this),
+    ]);
+
+    super.initState();
+  }
+
   /// Class fields
   final AuthenticationService _authService = AuthenticationService();
   final NavigationService _navService = NavigationService();
+  int currentIndex = 0;
+  List<Widget> pages = [];
 
   /// Class methods
   void signOut() async {
@@ -37,5 +51,15 @@ class HomePageController extends State<HomePage> {
             routeName: SignUpPageRoute,
           ),
         );
+  }
+
+  void toggleCurrentIndex(int sourceIndex) {
+    setState(() {
+      currentIndex = sourceIndex;
+    });
+  }
+
+  Widget selectedPage() {
+    return pages[currentIndex];
   }
 }

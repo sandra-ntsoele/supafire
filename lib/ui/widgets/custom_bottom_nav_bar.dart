@@ -26,7 +26,7 @@ class CustomBottomNavBar extends StatelessWidget {
         ),
         selectedFontSize: 0,
         unselectedFontSize: 0,
-        onTap: (sourceIndex) => viewController.changeCurrentIndex(sourceIndex),
+        onTap: (sourceIndex) => viewController.toggleCurrentIndex(sourceIndex),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_filled),
@@ -39,28 +39,5 @@ class CustomBottomNavBar extends StatelessWidget {
         ],
       ),
     );
-
-    // BottomNavigationBar(
-    //   currentIndex: viewController.currentIndex,
-    //   selectedIconTheme: IconThemeData(
-    //     color: AppColours.black,
-    //   ),
-    //   unselectedIconTheme: IconThemeData(
-    //     color: AppColours.grey,
-    //   ),
-    //   selectedFontSize: 0,
-    //   unselectedFontSize: 0,
-    //   onTap: (sourceIndex) => viewController.changeCurrentIndex(sourceIndex),
-    //   items: const [
-    //     BottomNavigationBarItem(
-    //       icon: Icon(Icons.home_filled),
-    //       label: "",
-    //     ),
-    //     BottomNavigationBarItem(
-    //       icon: Icon(Icons.person_rounded),
-    //       label: "",
-    //     )
-    //   ],
-    // );
   }
 }
