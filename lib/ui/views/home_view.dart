@@ -32,15 +32,7 @@ class HomePageView extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SizedBox(
           width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Welcome home",
-                style: SharedStyles.headingOne,
-              ),
-            ],
-          ),
+          child: viewController.selectedPage(),
         ),
       ),
     );
