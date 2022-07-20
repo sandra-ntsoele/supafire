@@ -2,13 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:supafire/ui/shared/app_colors.dart';
 
 class SharedStyles {
-  /// TEXT STYLES
+  /// [START TEXT STYLES]
   static TextStyle headingOne = TextStyle(
     color: AppColours.black,
     fontWeight: FontWeight.bold,
     fontSize: 22,
     letterSpacing: 0.5,
   );
+
+  static TextStyle paragraphOne = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+    color: AppColours.grey,
+  );
+
+  static TextStyle paragraphTwo = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+    color: AppColours.grey,
+  );
+
+  static TextStyle smallText = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.5,
+    color: AppColours.grey,
+  );
+
+  /// [END TEXT STYLES]
 
   static ButtonStyle primaryButtonStyle({
     EdgeInsets padding = const EdgeInsets.all(20),

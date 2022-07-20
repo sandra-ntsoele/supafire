@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supafire/controllers/home_page_controller.dart';
+import 'package:supafire/services/authentication_service.dart';
 import 'package:supafire/ui/shared/layout_helpers.dart';
 import 'package:supafire/ui/shared/shared_styles.dart';
 
@@ -50,10 +51,15 @@ class ProfilePage extends StatelessWidget {
               )
             ],
           ),
+          LayoutHelpers.mediumVerticalSpace,
+          Text(
+            AuthenticationService().currentUser!.displayName.toString(),
+            style: SharedStyles.headingOne,
+          ),
           LayoutHelpers.smallVerticalSpace,
           Text(
-            "MF Doom",
-            style: SharedStyles.headingOne,
+            AuthenticationService().currentUser!.email.toString(),
+            style: SharedStyles.paragraphTwo,
           ),
         ],
       ),
