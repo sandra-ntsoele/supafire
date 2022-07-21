@@ -8,6 +8,7 @@ class SharedStyles {
     fontWeight: FontWeight.bold,
     fontSize: 22,
     letterSpacing: 0.5,
+    height: 1.5,
   );
 
   static TextStyle paragraphOne = TextStyle(
@@ -15,6 +16,7 @@ class SharedStyles {
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     color: AppColours.grey,
+    height: 1.5,
   );
 
   static TextStyle paragraphTwo = TextStyle(
@@ -22,6 +24,7 @@ class SharedStyles {
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     color: AppColours.grey,
+    height: 1.5,
   );
 
   static TextStyle smallText = TextStyle(
@@ -29,6 +32,7 @@ class SharedStyles {
     fontWeight: FontWeight.w500,
     letterSpacing: 0.5,
     color: AppColours.grey,
+    height: 1.5,
   );
 
   /// [END TEXT STYLES]
