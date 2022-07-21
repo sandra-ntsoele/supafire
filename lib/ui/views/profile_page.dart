@@ -1,11 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:supafire/controllers/home_page_controller.dart';
 import 'package:supafire/services/authentication_service.dart';
 import 'package:supafire/ui/shared/layout_helpers.dart';
 import 'package:supafire/ui/shared/shared_styles.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  final HomePageController viewController;
+
+  const ProfilePage({
+    Key? key,
+    required this.viewController,
+  }) : super(key: key);
 
   final String src =
       "https://cdn.dribbble.com/users/94760/screenshots/14989947/media/b31ef3ab0e209cfa3b4c70396b104818.jpg?compress=1&resize=1000x750&vertical=top";
@@ -46,7 +52,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () => viewController.signOut(),
                         icon: const Icon(Icons.exit_to_app_rounded),
                         padding: EdgeInsets.zero,
                         alignment: Alignment.centerRight,
