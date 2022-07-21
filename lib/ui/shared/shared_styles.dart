@@ -35,6 +35,13 @@ class SharedStyles {
     height: 1.5,
   );
 
+  static TextStyle hyperlink = const TextStyle(
+    color: Colors.blue,
+    decoration: TextDecoration.underline,
+    decorationColor: Colors.blue,
+    decorationThickness: 1.5,
+  );
+
   /// [END TEXT STYLES]
 
   static ButtonStyle primaryButtonStyle({
