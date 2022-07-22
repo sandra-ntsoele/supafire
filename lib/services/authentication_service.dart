@@ -8,6 +8,9 @@ class AuthenticationService {
   /// Properties
   Stream<User?> get authState => _firebase.userChanges();
   User? get currentUser => _firebase.currentUser;
+  Future<String> get idToken async {
+    return await currentUser!.getIdToken(true);
+  }
 
   /// Methods
   Future signOut() async {
