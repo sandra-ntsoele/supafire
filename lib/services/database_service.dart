@@ -10,6 +10,13 @@ class DatabaseService {
   SupabaseClient supabase = Supabase.instance.client;
   final AuthenticationService _authService = AuthenticationService();
 
+  Stream tableStream({required String table, required String uniqueColumns}) {
+    Stream<List<Map<String, dynamic>>> subscription =
+        supabase.from(table).stream([uniqueColumns]).execute();
+
+    return subscription.map((event) => event);
+  }
+
   _setAccessToken() async {
     final firebaseToken = await _authService.idToken;
     Map payload = JwtDecoder.decode(firebaseToken);
