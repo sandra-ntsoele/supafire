@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:postgrest/postgrest.dart';
 import 'package:supafire/constants/route_names.dart';
-import 'package:supafire/models/user.dart';
+import 'package:supafire/models/user_model.dart';
 import 'package:supafire/services/authentication_service.dart';
 import 'package:supafire/services/database_service.dart';
 import 'package:supafire/services/navigation_service.dart';
