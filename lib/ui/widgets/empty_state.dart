@@ -22,7 +22,7 @@ class EmptyState extends StatelessWidget {
         ),
         LayoutHelpers.largeVerticalSpace,
         Text(
-          "No books found.\nEmpty State",
+          "No entries found.",
           style: SharedStyles.headingOne,
           textAlign: TextAlign.center,
         ),
