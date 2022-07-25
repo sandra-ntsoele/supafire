@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:postgrest/postgrest.dart';
 import 'package:supafire/constants/route_names.dart';
+import 'package:supafire/models/user.dart';
 import 'package:supafire/services/authentication_service.dart';
 import 'package:supafire/services/database_service.dart';
 import 'package:supafire/services/navigation_service.dart';
@@ -32,8 +35,12 @@ class HomePageController extends State<HomePage> {
   /// Class fields
   final AuthenticationService _authService = AuthenticationService();
   final NavigationService _navService = NavigationService();
+  final DatabaseService _dbService = DatabaseService();
 
-  Future? syncUser;
+  Stream? tableStream;
+  UserModel? userModel;
+  dynamic userRecord;
+
   int currentIndex = 0;
   List<Widget> pages = [];
 
@@ -44,26 +51,34 @@ class HomePageController extends State<HomePage> {
       ProfilePage(viewController: this),
     ]);
 
-    syncUser = DatabaseService().syncUser(
-      displayName: _authService.currentUser!.displayName,
-      email: _authService.currentUser!.email,
-      uid: _authService.currentUser!.uid,
+    tableStream = _dbService.tableStream(
+      table: "wishlist",
+      uniqueColumns: "book_id, user_id, created, book_is_read",
     );
+
+    String? displayName = _authService.currentUser!.displayName;
+    String? email = _authService.currentUser!.email;
+    String? uid = _authService.currentUser!.uid;
+
+    userModel = UserModel(
+      displayName: displayName.toString(),
+      email: email.toString(),
+      uid: uid,
+    );
+
+    userRecord = userModel!.getUserRecord();
 
     super.initState();
   }
 
   /// Class methods
-  Widget selectedPage() {
-    return StreamBuilder(
-      stream: DatabaseService().tableStream(
-        table: "wishlist",
-        uniqueColumns: "book_id, user_id, created, book_is_read",
-      ),
+  Widget _syncUserFutureBuilder() {
+    return FutureBuilder(
+      future: userModel!.syncUser(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.hasError) {
-            return ErrorPage(viewController: this);
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.data is PostgrestError) {
+            return ErrorPage(viewController: this, error: snapshot.data);
           } else {
             return pages[currentIndex];
           }
@@ -71,6 +86,29 @@ class HomePageController extends State<HomePage> {
           return const Center(
             child: CircularProgressIndicator(),
           );
+        }
+      },
+    );
+  }
+
+  Widget selectedPage() {
+    return FutureBuilder(
+      future: userRecord,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          // Whilst busy executing future
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else {
+          // Once future has executed and response retrieved
+          if (snapshot.data is PostgrestError) {
+            return ErrorPage(viewController: this, error: snapshot.data);
+          } else if (snapshot.data is bool) {
+            return _syncUserFutureBuilder();
+          } else {
+            return pages[currentIndex];
+          }
         }
       },
     );
