@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supafire/constants/route_names.dart';
+import 'package:supafire/services/database_service.dart';
 import 'package:supafire/services/db_details.dart';
 import 'package:supafire/ui/views/home_view.dart';
 import 'package:supafire/ui/views/signup_view.dart';
@@ -10,12 +11,13 @@ import 'package:supafire/ui/views/verify_email_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp().whenComplete(
-    () async => await Supabase.initialize(
+  await Firebase.initializeApp().whenComplete(() async {
+    await Supabase.initialize(
       url: DBDetails.url,
       anonKey: DBDetails.anonKey,
-    ),
-  );
+    );
+    await DatabaseService().setAccessToken();
+  });
   runApp(const MyApp());
 }
 
