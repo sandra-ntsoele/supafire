@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supafire/controllers/home_page_controller.dart';
 import 'package:supafire/ui/shared/layout_helpers.dart';
 import 'package:supafire/ui/shared/shared_styles.dart';
@@ -30,23 +29,15 @@ class ErrorPage extends StatelessWidget {
           textAlign: TextAlign.center,
           text: TextSpan(
             style: SharedStyles.paragraphTwo,
-            text: "${error.message}\n",
+            text: "${error.message}.\n\n",
             children: [
-              const TextSpan(text: "Reload the page or\n"),
+              const TextSpan(text: "Please restart the app or "),
               TextSpan(
                   text: "Contact support",
                   style: SharedStyles.hyperlink,
                   recognizer: TapGestureRecognizer()..onTap = () => InkWell()),
             ],
           ),
-        ),
-        LayoutHelpers.mediumVerticalSpace,
-        ElevatedButton(
-          onPressed: () => viewController.reloadPage(),
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all(const CircleBorder()),
-          ),
-          child: const Icon(Icons.replay_outlined),
         ),
       ],
     );
